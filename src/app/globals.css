@@ -9,8 +9,8 @@
   --background: #f7f3e9;
   --foreground: #8b6914;
   --card-background: #faf6ed;
-  --accent-blue: #4f6b71;
-  --text-bronze: #cd853f;
+  --accent-blue: #7c8fa8;
+  --text-bronze: #977b4f;
   --text-warm: #a0522d;
 }
 
@@ -43,7 +43,7 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--text-bronze);
   font-family: var(--font-body);
   background-image: 
     radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),

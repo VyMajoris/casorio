@@ -71,7 +71,7 @@ export default function DonationPage({}: DonationPageProps) {
             >
               Lista de Presentes
             </h1>
-            <h2 className={`text-2xl mb-3 italic `}>
+            <h2 className={`text-2xl mb-3 italic text-primary `}>
               <div style={{ lineHeight: 1 }}>Lília</div>
               <div style={{ lineHeight: 1 }}>&</div>
               <div style={{ lineHeight: 1 }}>Eduardo</div>
@@ -137,18 +137,18 @@ export default function DonationPage({}: DonationPageProps) {
               </h4>
               <div className="flex flex-col items-center">
               <div
-                className="p-4 rounded-lg border-2 mb-4"
+                className=" rounded-lg border-2 mb-4"
                 style={{
                 borderColor: "var(--accent-blue)",
                 backgroundColor: "white",
                 }}
               >
                 <Image
-                src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"
+                src="/qr-code.svg"
                 alt="Contribua com um presente"
                 width={280}
                 height={280}
-                className=""
+                className=" rounded-lg"
                 placeholder="blur"
                 blurDataURL="/images/donation-placeholder-blur.jpg"
                 />
@@ -236,7 +236,7 @@ export default function DonationPage({}: DonationPageProps) {
             <p
               className="italic text-base "
               style={{
-                color: "var(--text-warm)",
+                color: "var(--accent-blue)",
                 fontFamily: "var(--font-serif)",
               }}
             >

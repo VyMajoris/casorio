@@ -35,10 +35,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentValue, maxValue }) => 
         ></div>
       </div>
       
-      <div className="flex justify-between items-center mt-3 text-base font-semibold">
-    
-        <span style={{color: 'var(--text-warm)'}}>Meta: R$ {maxValue.toLocaleString('pt-BR')}</span>
-      </div>
+      
     </div>
   );
 };

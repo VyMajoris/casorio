@@ -29,7 +29,7 @@ const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
             {gift.name}
           </p>
           <p className="text-base font-medium" style={{
-            color: isUnlocked ? 'var(--text-bronze)' : 'var(--text-warm)'
+            color: isUnlocked ? 'var(--text-bronze)' : 'var(--accent-blue)'
           }}>
             R$ {gift.value.toLocaleString("pt-BR")}
           </p>
