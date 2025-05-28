@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getFallbackGifts, getGifts, Gift } from "@/lib/gifts";
 import ProgressBar from "./ProgressBar";
-import DonationForm from "./DonationForm";
+
 import GiftList from "./GiftList";
 import Image from "next/image";
 import Link from "next/link";

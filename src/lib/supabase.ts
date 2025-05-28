@@ -23,7 +23,9 @@ export function getSupabaseClient() {
 }
 
 // Export a lazy-initialized supabase instance
-let _supabaseClient: ReturnType<typeof createClient> | null = null
+import type { SupabaseClient } from '@supabase/supabase-js'
+
+let _supabaseClient: SupabaseClient<any, 'public', any> | null = null
 
 export function getSupabase() {
   if (!_supabaseClient && isSupabaseConfigured()) {
