@@ -1,0 +1,21 @@
+[
+  { "sortOrder": 1, "name": "Fogão", "value": 768.40, "icon": "🍳"},
+  { "sortOrder": 2, "name": "Forno", "value": 1859.07, "icon": "🔥" },
+  { "sortOrder": 3, "name": "Geladeira", "value": 3683.16, "icon": "❄️" },
+  { "sortOrder": 4, "name": "Microondas", "value": 949.00, "icon": "🍲" },
+  { "sortOrder": 5, "name": "Air fryer", "value": 624.90, "icon": "🍟" },
+  { "sortOrder": 6, "name": "Faqueiro", "value": 500.00, "icon": "🍴" },
+  { "sortOrder": 7, "name": "Jogo de copos", "value": 290.00, "icon": "🥂" },
+  { "sortOrder": 8, "name": "Aparelho de jantar", "value": 1033.94, "icon": "🍽️" },
+  { "sortOrder": 9, "name": "Fogão elétrico 1 boca para mesa", "value": 122.55, "icon": "🔥" },
+  { "sortOrder": 10, "name": "Panela de pedra", "value": 339.00, "icon": "🍳" },
+  { "sortOrder": 11, "name": "Batedeira", "value": 589.00, "icon": "🧁" },
+  { "sortOrder": 12, "name": "Processador", "value": 370.00, "icon": "🔪" },
+  { "sortOrder": 13, "name": "Varal suspenso", "value": 258.75, "icon": "👕" },
+  { "sortOrder": 14, "name": "Máquina lava e seca", "value": 2669.90, "icon": "🧺" },
+  { "sortOrder": 15, "name": "Ferro de passar", "value": 119.00, "icon": "🧼" },
+  { "sortOrder": 16, "name": "Cortina", "value": 1337.93, "icon": "🪟" },
+  { "sortOrder": 17, "name": "Sofá", "value": 4099.86, "icon": "🛋️" },
+  { "sortOrder": 18, "name": "Aparador para altar", "value": 1100.00, "icon": "🕯️" },
+  { "sortOrder": 19, "name": "Cama box + colchão", "value": 5700.00, "icon": "🛏️" }
+]
