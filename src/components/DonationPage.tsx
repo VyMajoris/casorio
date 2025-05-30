@@ -7,7 +7,12 @@ import ProgressBar from "./ProgressBar";
 import GiftList from "./GiftList";
 import Image from "next/image";
 import Link from "next/link";
-import { ClipboardIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowTopRightOnSquareIcon,
+  ArrowUturnLeftIcon,
+  ArrowUturnUpIcon,
+  ClipboardIcon,
+} from "@heroicons/react/24/outline";
 // Import the Libre Baskerville font from next/font/google
 import { Libre_Baskerville, Kablammo } from "next/font/google";
 
@@ -55,6 +60,24 @@ export default function DonationPage({}: DonationPageProps) {
     // In a real app, you'd trigger a payment process here
   };
 
+  function copytoClipboard(text: string) {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        console.log("Copied to clipboard:", text);
+        const copyButton = document.getElementById("pix-copy-btn");
+        if (copyButton) {
+          copyButton.textContent = "Copiado!";
+          setTimeout(() => {
+            copyButton.textContent = "Copiar";
+          }, 2000);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+  }
+
   return (
     <div
       className={`min-h-screen flex flex-col items-center py-10 px-4  ${libreBaskerville.className}`}
@@ -71,7 +94,7 @@ export default function DonationPage({}: DonationPageProps) {
             >
               Lista de Presentes
             </h1>
-            <h2 className={`text-2xl mb-3 italic text-primary `}>
+            <h2 className={`text-3xl mb-3 italic  `}>
               <div style={{ lineHeight: 1 }}>Lília</div>
               <div style={{ lineHeight: 1 }}>&</div>
               <div style={{ lineHeight: 1 }}>Eduardo</div>
@@ -94,107 +117,104 @@ export default function DonationPage({}: DonationPageProps) {
           </section>
 
           {/* Donation Form Section */}
-            <section
+          <section
             className="mb-8 p-6 rounded-md shadow-sm w-full border border-amber-100 relative overflow-hidden"
             style={{
               backgroundColor: "rgba(255,255,255,0.35)",
             }}
-            >
+          >
             {/* Vatican background image */}
             <Image
               src="/vatican.webp"
               alt="Vatican"
               fill
               style={{
-              objectFit: "cover",
-              zIndex: 0,
-              objectPosition: "center 100px",
-              scale:1,
-              opacity: 0.08,
+                objectFit: "cover",
+                zIndex: 0,
+                objectPosition: "center 100px",
+                scale: 1,
+                opacity: 0.08,
               }}
               className="absolute inset-0 pointer-events-none"
               priority={false}
             />
             <div className="relative z-10">
               <h3
-              className="text-2xl font-semibold text-center "
-              style={{
-                fontFamily: "var(--font-serif)",
-                color: "var(--text-bronze)",
-              }}
+                className="text-2xl font-semibold text-center "
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  color: "var(--text-bronze)",
+                }}
               >
-              Ajude-nos a realizar nosso sonho:
+                Ajude-nos a realizar nosso sonho:
               </h3>
               <h4
-              className="text font-light text-center mb-6"
-              style={{
-                fontFamily: "var(--font-serif)",
-                color: "var(--text-bronze)",
-              }}
+                className="text font-light text-center mb-6"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  color: "var(--text-bronze)",
+                }}
               >
-              Buscamos sua ajuda para construir um lar para criarmos nossos
-              filhos na beleza e santidade.
+                Buscamos sua ajuda para construir um lar para criarmos nossos
+                filhos na beleza e santidade.
               </h4>
               <div className="flex flex-col items-center">
-              <div
-                className=" rounded-lg border-2 mb-4"
-                style={{
-                borderColor: "var(--accent-blue)",
-                backgroundColor: "white",
-                }}
-              >
-                <Image
-                src="/qr-code.svg"
-                alt="Contribua com um presente"
-                width={280}
-                height={280}
-                className=" rounded-lg"
-                placeholder="blur"
-                blurDataURL="/images/donation-placeholder-blur.jpg"
-                />
-              </div>
-
-              <div className="flex flex-col items-center">
-                <div className="items-center flex flex-row bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   px-2.5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <span className="mr-4">Chave PIX: 11 995645748</span>
-                <button
-                  type="button"
-                  onClick={async () => {}}
-                  id="pix-copy-btn"
-                  className="  text-gray-900 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border h-8"
+                <div
+                  className=" rounded-lg border-2 mb-4"
+                  style={{
+                    borderColor: "var(--accent-blue)",
+                    backgroundColor: "white",
+                  }}
                 >
-                  {" "}
-                  <ClipboardIcon className="w-5 h-5" />
-                  <span>Copiar</span>
-                </button>
+                  <Image
+                    src="/qr-code.svg"
+                    alt="Contribua com um presente"
+                    width={280}
+                    height={280}
+                    className=" rounded-lg"
+                    placeholder="blur"
+                    blurDataURL="/images/donation-placeholder-blur.jpg"
+                  />
                 </div>
 
-                <Link
-                href="#"
-                className="inline-block mt-2 px-6 py-3 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
-                style={{
-                  backgroundColor: "var(--accent-blue)",
-                  color: "white",
-                  fontFamily: "var(--font-body)",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor =
-                  "var(--text-bronze)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor =
-                  "var(--accent-blue)")
-                }
-                >
-                Usar cartão de crédito
-                </Link>
-                <p className="text-xs mt-5">
-                Atualizamos o valor arrecadado manualmente.
-                </p>
-              </div>
+                <div className="flex flex-col items-center">
+                  <div className="items-center flex flex-row text-sm rounded-lg px-2.5 py-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 ">
+                    <span className="mr-4">Chave PIX: 11 995645748</span>
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        copytoClipboard("11 995645748");
+                      }}
+                      id="pix-copy-btn"
+                      className=" cursor-pointer  text-gray-900 dark:text-gray-400  bg-gray-800 border-gray-600 hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center  border h-8"
+                    >
+                      {" "}
+                      <ClipboardIcon className="w-5 h-5" />
+                      <span>Copiar</span>
+                    </button>
+                  </div>
+
+                  <button
+                    className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg  bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 "
+                    style={{ height: 48 }}
+                    onClick={() => {
+                      const modal = document.getElementById(
+                        "my_modal_2"
+                      ) as HTMLDialogElement | null;
+                      if (modal) {
+                        modal.showModal();
+                      }
+                    }}
+                  >
+                    Usar cartão de crédito
+                  </button>
+                  <p className="text-sm mt-5">
+                    Atualizamos o valor arrecadado manualmente.
+                  </p>
+                </div>
               </div>
             </div>
-            </section>
+          </section>
 
           {/* Gift List Section */}
           <section className="w-full">
@@ -212,24 +232,27 @@ export default function DonationPage({}: DonationPageProps) {
             className="text-center mt-10 pt-6 border-t"
             style={{ borderColor: "var(--accent-blue)" }}
           >
-            <button
-              className=" bg-slate-600 cursor-pointer  px-3 py-3 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
-              onClick={() => {}}
-            >
-              Link para o convite
-            </button>
-            <button
-              className=" bg-slate-600 cursor-pointer  px-3 py-3 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
-              onClick={() => {}}
-            >
-              Mais informações sobre a missa tridentina
-            </button>
-            <button
-              className=" bg-slate-600 cursor-pointer  px-3 py-3 rounded-md transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg"
-              onClick={() => {}}
-            >
-              Dicas de vestimenta
-            </button>
+            <div className="flex flex-col items-center mb-5">
+              <button
+                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg  bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 "
+                onClick={() => {}}
+              >
+                Link para o convite
+              </button>
+              <button
+                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg  bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 "
+                onClick={() => {}}
+              >
+                Mais informações sobre a missa tridentina
+              </button>
+              <button
+                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg  bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 "
+                onClick={() => {}}
+              >
+                Dicas de vestimenta
+              </button>
+            </div>
+
             <p className="mb-3 text-lg" style={{ color: "var(--text-bronze)" }}>
               Agradecemos de coração por sua generosidade!
             </p>
@@ -247,6 +270,7 @@ export default function DonationPage({}: DonationPageProps) {
               <Image
                 src="/amdg.png"
                 alt="AMDG"
+                className="z-40"
                 width={200}
                 height={60}
                 style={{ objectFit: "contain" }}
@@ -276,7 +300,7 @@ export default function DonationPage({}: DonationPageProps) {
         />
 
         <div
-          className="absolute bottom-0 z-30 rotate-270"
+          className="absolute bottom-0 rotate-270 sepia-30"
           style={{
             width: "220px",
             height: "220px",
@@ -295,11 +319,12 @@ export default function DonationPage({}: DonationPageProps) {
         </div>
 
         <div
-          className="absolute bottom-0 right-0 z-30 rotate-180"
+          className="absolute bottom-0 right-0  rotate-90 sepia-30"
           style={{
             width: "220px",
             height: "220px",
             pointerEvents: "none",
+            transform: "scaleX(-1)",
           }}
         >
           <Image
@@ -313,6 +338,60 @@ export default function DonationPage({}: DonationPageProps) {
           />
         </div>
       </div>
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Um momento!</h3>
+          <p className="py-4">
+            O Mercado Pago oferece opção de PIX, mas não recomendamos, pois há
+            cobrança de taxa.
+            <br />
+            <br /> Prefira o PIX da página principal, que cai direto na nossa
+            conta, sem custos.
+            <br />
+            Use o Mercado Pago apenas se for pagar com cartão de crédito.
+            <br />
+            <br />
+            Obrigado!
+          </p>
+          <div className="flex justify-between">
+            <button
+              className="btn text-gray-300"
+              onClick={() => {
+                const modal = document.getElementById(
+                  "my_modal_2"
+                ) as HTMLDialogElement | null;
+                if (modal) {
+                  modal.close();
+                }
+              }}
+            >
+              Voltar <ArrowUturnLeftIcon className="w-5 h-5" />
+            </button>
+
+            <button
+              className="btn text-bronze"
+              onClick={() => {
+                window.open(
+                  "https://link.mercadopago.com.br/liliaeeduardo",
+                  "_blank"
+                );
+                const modal = document.getElementById(
+                  "my_modal_2"
+                ) as HTMLDialogElement | null;
+                if (modal) {
+                  modal.close();
+                }
+              }}
+            >
+              Continuar <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </div>
   );
 }

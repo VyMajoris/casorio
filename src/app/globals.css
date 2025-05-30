@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Kapakana:wght@300..400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
 @import "tailwindcss";
+@plugin "daisyui";
 
 :root {
   --background: #f7f3e9;
@@ -14,12 +15,6 @@
   --text-warm: #a0522d;
 }
 
-.kapakana-font {
-  font-family: "Kapakana", cursive;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
 
 @theme inline {
   --color-background: var(--background);
