@@ -82,7 +82,7 @@ export default function DonationPage({}: DonationPageProps) {
     <div
       className={`min-h-screen flex flex-col items-center py-10 px-4  ${libreBaskerville.className}`}
     >
-      <div className="w-full relative max-w-2xl shadow-2xl rounded-lg   bg-white/50">
+      <div className="w-full relative max-w-2xl shadow-2xl rounded-lg   bg-white/20">
         <div className="z-20 p-8 relative mt-20 ">
           {/* Header Section */}
           <header className="text-center mb-8">
