@@ -149,13 +149,13 @@ export default function DonationPage({}: DonationPageProps) {
                 Ajude-nos a realizar nosso sonho:
               </h3>
               <h4
-                className="text font-light text-center mb-6"
+                className="text font-light text-center mb-6 px-20 mt-3"
                 style={{
                   fontFamily: "var(--font-serif)",
                   color: "var(--text-bronze)",
                 }}
               >
-                Buscamos sua ajuda para construir um lar para criarmos nossos
+                Buscamos sua ajuda para construir nosso lar e  para criarmos nossos
                 filhos na beleza e santidade.
               </h4>
               <div className="flex flex-col items-center">
