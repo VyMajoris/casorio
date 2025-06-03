@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { Gift } from "@/lib/gifts"; // Import the Gift interface
 
 interface GiftItemProps {
@@ -9,9 +8,8 @@ interface GiftItemProps {
 
 const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
   return (
-    <div className="flex items-center space-x-4">
-      <div
-        className="rounded-lg overflow-hidden shadow-md"
+    <div
+      className="relative rounded-lg overflow-hidden shadow-md w-full aspect-[4/3] sm:aspect-square"
         style={{
           backgroundImage: gift.image_url
             ? `url(${
@@ -25,24 +23,8 @@ const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
           backgroundRepeat: "no-repeat",
           backgroundColor: !gift.image_url ? "#f5f5f5" : undefined,
         }}
-      >
-        <div
-          style={{
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            background:
-              "linear-gradient(to top, rgba(255,255,255,.4) 0%, rgba(0,0,0,0.0) 40%)",
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-start",
-            padding: "1.5rem",
-            pointerEvents: "none",
-            zIndex: 1,
-            position: "relative",
-          }}
-        >
+    >
+      <div className="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent flex items-end p-6 pointer-events-none">
           <div>
             <p className="text-2xl text-shadow-md" style={{ color: "white" }}>
               {gift.name}
@@ -52,22 +34,20 @@ const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
             </p>
           </div>
         </div>
-
-        <div className="justify-start flex items-center mt-3">
-          {isUnlocked && (
-            <span
-              className="text-xs font-semibold px-4 py-2 rounded-full shadow-md"
-              style={{
-                backgroundColor: "var(--accent-blue)",
-                color: "white",
-                fontFamily: "var(--font-body)",
-              }}
-            >
-              Recebido com gratidão 🙏
-            </span>
-          )}
+      {isUnlocked && (
+        <div className="absolute bottom-4 left-4">
+          <span
+            className="text-xs font-semibold px-4 py-2 rounded-full shadow-md"
+            style={{
+              backgroundColor: "var(--accent-blue)",
+              color: "white",
+              fontFamily: "var(--font-body)",
+            }}
+          >
+            Recebido com gratidão 🙏
+          </span>
         </div>
-      </div>
+      )}
     </div>
   );
 };
