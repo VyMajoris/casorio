@@ -25,10 +25,12 @@ const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
           <Image
             src={gift.image_url.startsWith('http') ? gift.image_url : `/${gift.image_url}`}
             alt={gift.name}
-            width={64}
-            height={64}
-            className="w-16 h-16 object-cover rounded-md"
-            style={{ filter: isUnlocked ? 'none' : 'grayscale(50%)' }}
+            width={124}
+            height={124}
+            quality={100}
+            
+            className=" object-cover rounded-md"
+            style={{ filter: 'grayscale(20%)' }}
           />
         ) : (
           <span className="text-3xl" style={{ filter: isUnlocked ? 'none' : 'grayscale(50%)' }}>{gift.icon}</span>
