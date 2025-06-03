@@ -10,7 +10,7 @@ interface GiftItemProps {
 const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
   return (
     <div
-      className={`flex flex-col justify-between p-5 border rounded-lg shadow-md mb-3 transition-all duration-300 ${
+      className={`flex flex-col justify-between p-5 border rounded-lg shadow-md transition-all duration-300 aspect-square ${
         isUnlocked ? "shadow-lg" : ""
       }`}
       style={{
