@@ -9,7 +9,7 @@ interface GiftItemProps {
 const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
   return (
     <div
-      className="relative rounded-lg overflow-hidden shadow-md w-full aspect-[4/3] sm:aspect-square"
+      className="relative rounded-lg overflow-hidden shadow-lg w-full aspect-[4/3] sm:aspect-square"
         style={{
           backgroundImage: gift.image_url
             ? `url(${
@@ -24,12 +24,12 @@ const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
           backgroundColor: !gift.image_url ? "#f5f5f5" : undefined,
         }}
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent flex items-end p-6 pointer-events-none">
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-600/30 to-transparent flex items-end p-6 pointer-events-none">
           <div>
-            <p className="text-2xl text-shadow-md" style={{ color: "white" }}>
+            <p className="text-2xl text-shadow-md text-amber-50">
               {gift.name}
             </p>
-            <p className="text-shadow-md text-slate-100">
+            <p className="text-shadow-lg text-slate-200">
               R$ {Math.ceil(gift.value).toLocaleString("pt-BR")}
             </p>
           </div>
