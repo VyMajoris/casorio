@@ -149,7 +149,7 @@ export default function DonationPage({}: DonationPageProps) {
                 Ajude-nos a realizar nosso sonho:
               </h3>
               <h4
-                className="text font-light text-center mb-6 px-20 mt-3"
+                className="text font-light text-center mb-6 mt-3 px-4 sm:px-20"
                 style={{
                   fontFamily: "var(--font-serif)",
                   color: "var(--text-bronze)",
@@ -171,22 +171,22 @@ export default function DonationPage({}: DonationPageProps) {
                     alt="Contribua com um presente"
                     width={280}
                     height={280}
-                    className=" rounded-lg"
+                    className="rounded-lg w-40 sm:w-72 h-auto"
                     placeholder="blur"
                     blurDataURL="/images/donation-placeholder-blur.jpg"
                   />
                 </div>
 
                 <div className="flex flex-col items-center">
-                  <div className="items-center flex flex-row text-sm rounded-lg px-2.5 py-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 ">
-                    <span className="mr-4">Chave PIX: 11 995645748</span>
+                  <div className="items-center flex flex-col sm:flex-row text-sm rounded-lg px-2.5 py-2 bg-gray-700 border-gray-600 text-gray-200">
+                    <span className="sm:mr-4 mb-2 sm:mb-0">Chave PIX: 11 995645748</span>
                     <button
                       type="button"
                       onClick={async () => {
                         copytoClipboard("11 995645748");
                       }}
                       id="pix-copy-btn"
-                      className=" cursor-pointer  text-gray-900 dark:text-gray-400  bg-gray-800 border-gray-600 hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center  border h-8"
+                      className="cursor-pointer text-gray-900 dark:text-gray-400 bg-gray-800 border-gray-600 hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center border h-8 w-full sm:w-auto"
                     >
                       {" "}
                       <ClipboardIcon className="w-5 h-5" />
@@ -195,7 +195,7 @@ export default function DonationPage({}: DonationPageProps) {
                   </div>
 
                   <button
-                    className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg  bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 "
+                    className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                     style={{ height: 48 }}
                     onClick={() => {
                       const modal = document.getElementById(
@@ -234,19 +234,19 @@ export default function DonationPage({}: DonationPageProps) {
           >
             <div className="flex flex-col items-center mb-5">
               <button
-                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg  bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 "
+                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                 onClick={() => {}}
               >
                 Link para o convite
               </button>
               <button
-                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg  bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 "
+                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                 onClick={() => {}}
               >
                 Mais informações sobre a missa tridentina
               </button>
               <button
-                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg  bg-gray-700 border-gray-600 placeholder-gray-400 text-gray-200 "
+                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                 onClick={() => {}}
               >
                 Dicas de vestimenta
@@ -279,13 +279,8 @@ export default function DonationPage({}: DonationPageProps) {
           </footer>
         </div>
         <div
-          className="z-10 rounded-lg "
+          className="z-10 rounded-lg absolute top-0 left-0 w-full h-64 sm:h-[400px]"
           style={{
-            width: "100%",
-            height: "400px",
-            top: 0,
-            left: 0,
-
             mixBlendMode: "multiply",
             backgroundImage: "url('/bg_flowers_1.webp')",
             backgroundRepeat: "no-repeat",
@@ -294,18 +289,13 @@ export default function DonationPage({}: DonationPageProps) {
             opacity: 0.3,
             filter: "blur(0.4px) sepia(10%)",
             transform: "scaleY(-1) ",
-            position: "absolute",
             overflow: "hidden",
           }}
         />
 
         <div
-          className="absolute bottom-0 rotate-270 sepia-30"
-          style={{
-            width: "220px",
-            height: "220px",
-            pointerEvents: "none",
-          }}
+          className="absolute bottom-0 rotate-270 sepia-30 w-24 h-24 sm:w-[220px] sm:h-[220px]"
+          style={{ pointerEvents: "none" }}
         >
           <Image
             src="/corner_ornamentation.png"
@@ -319,13 +309,8 @@ export default function DonationPage({}: DonationPageProps) {
         </div>
 
         <div
-          className="absolute bottom-0 right-0  rotate-90 sepia-30"
-          style={{
-            width: "220px",
-            height: "220px",
-            pointerEvents: "none",
-            transform: "scaleX(-1)",
-          }}
+          className="absolute bottom-0 right-0 rotate-90 sepia-30 w-24 h-24 sm:w-[220px] sm:h-[220px]"
+          style={{ pointerEvents: "none", transform: "scaleX(-1)" }}
         >
           <Image
             src="/corner_ornamentation.png"
