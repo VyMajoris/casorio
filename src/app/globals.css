@@ -20,7 +20,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card-background);
-  --color-gold: var(--accent-blue);
+  --color-blue: var(--accent-blue);
   --color-bronze: var(--text-bronze);
   --color-warm: var(--text-warm);
   --font-serif: 'Playfair Display', serif;
