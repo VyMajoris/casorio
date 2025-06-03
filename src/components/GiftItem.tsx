@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Gift } from '@/lib/gifts'; // Import the Gift interface
 
 interface GiftItemProps {
@@ -20,7 +21,18 @@ const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
       }}
     >
       <div className="flex items-center space-x-4">
-        <span className="text-3xl" style={{filter: isUnlocked ? 'none' : 'grayscale(50%)'}}>{gift.icon}</span>
+        {gift.image_url ? (
+          <Image
+            src={gift.image_url.startsWith('http') ? gift.image_url : `/${gift.image_url}`}
+            alt={gift.name}
+            width={64}
+            height={64}
+            className="w-16 h-16 object-cover rounded-md"
+            style={{ filter: isUnlocked ? 'none' : 'grayscale(50%)' }}
+          />
+        ) : (
+          <span className="text-3xl" style={{ filter: isUnlocked ? 'none' : 'grayscale(50%)' }}>{gift.icon}</span>
+        )}
         <div>
           <p className="font-semibold text-lg" style={{
             fontFamily: 'var(--font-body)',
