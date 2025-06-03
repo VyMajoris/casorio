@@ -158,9 +158,9 @@ export default function DonationPage({}: DonationPageProps) {
                 Buscamos sua ajuda para construir nosso lar e  para criarmos nossos
                 filhos na beleza e santidade.
               </h4>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center ">
                 <div
-                  className=" rounded-lg border-2 mb-4"
+                  className=" rounded-lg border-2 mb-4   "
                   style={{
                     borderColor: "var(--accent-blue)",
                     backgroundColor: "white",
@@ -171,13 +171,13 @@ export default function DonationPage({}: DonationPageProps) {
                     alt="Contribua com um presente"
                     width={280}
                     height={280}
-                    className="rounded-lg w-40 sm:w-72 h-auto"
+                    className="rounded-lg   h-auto"
                     placeholder="blur"
                     blurDataURL="/images/donation-placeholder-blur.jpg"
                   />
                 </div>
 
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col sm:items-center items-stretch">
                   <div className="items-center flex flex-col sm:flex-row text-sm rounded-lg px-2.5 py-2 bg-gray-700 border-gray-600 text-gray-200">
                     <span className="sm:mr-4 mb-2 sm:mb-0">Chave PIX: 11 995645748</span>
                     <button
@@ -195,7 +195,12 @@ export default function DonationPage({}: DonationPageProps) {
                   </div>
 
                   <button
-                    className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
+                    className="mt-3 px-2.5 py-2 
+                    items-center cursor-pointer flex flex-row
+            
+                    justify-center
+                     text-sm rounded-lg bg-gray-700
+                      border-gray-600 text-gray-200 w-full sm:w-auto"
                     style={{ height: 48 }}
                     onClick={() => {
                       const modal = document.getElementById(
@@ -208,6 +213,7 @@ export default function DonationPage({}: DonationPageProps) {
                   >
                     Usar cartão de crédito
                   </button>
+                  
                   <p className="text-sm mt-5">
                     Atualizamos o valor arrecadado manualmente.
                   </p>
