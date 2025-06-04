@@ -15,10 +15,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
  
-      { url: "/favicon2.ico",         sizes: undefined, type: undefined },
+      { url: "/favicon3.ico",         sizes: undefined, type: undefined },
     ],
-    shortcut: "/favicon2.ico",
-    apple: "/apple-touch-icon2.png",
+    shortcut: "/favicon3.ico",
+    apple: "/apple-touch-icon3.png",
 
   },
 };

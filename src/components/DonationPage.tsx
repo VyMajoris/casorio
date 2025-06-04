@@ -95,13 +95,13 @@ export default function DonationPage({}: DonationPageProps) {
               Lista de Presentes
             </h1>
             <h2 className={`text-3xl mb-3 italic  `}>
-              <div style={{ lineHeight: 1 }}>Lília</div>
-              <div style={{ lineHeight: 1 }}>&</div>
               <div style={{ lineHeight: 1 }}>Eduardo</div>
+              <div style={{ lineHeight: 1 }}>&</div>
+              <div style={{ lineHeight: 1 }}>Lília</div>
             </h2>
             <div className="flex justify-center">
               <Image
-                src="/logo_colorido_4.png"
+                src="/logo_colorido_EL.png"
                 alt="Contribua com um presente"
                 width={280}
                 height={280}
