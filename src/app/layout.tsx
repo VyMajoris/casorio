@@ -14,12 +14,11 @@ export const metadata: Metadata = {
   // Aqui dizemos pro Next gerar automaticamente <link rel="icon" href="/favicon-32x32.png">, etc.
   icons: {
     icon: [
-      { url: "/favicon-32x32.png",   sizes: "32x32", type: "image/png" },
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-      { url: "/favicon.ico",         sizes: undefined, type: undefined },
+ 
+      { url: "/favicon2.ico",         sizes: undefined, type: undefined },
     ],
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon2.ico",
+    apple: "/apple-touch-icon2.png",
 
   },
 };
