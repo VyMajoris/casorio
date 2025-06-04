@@ -101,7 +101,7 @@ export default function DonationPage({}: DonationPageProps) {
             </h2>
             <div className="flex justify-center">
               <Image
-                src="/logo_colorido_EL.png"
+                src="/logo_colorido_EL2.png"
                 alt="Contribua com um presente"
                 width={280}
                 height={280}
