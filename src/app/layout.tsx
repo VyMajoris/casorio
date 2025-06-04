@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Lília & Eduardo: Lista de presentes",
   description: "Lista de presentes para o casamento de Lília e Eduardo",
   icons: {
-    icon: "/favicon-32x32.png",
+    icon: "/favicon.ico",
   },
 };
 
