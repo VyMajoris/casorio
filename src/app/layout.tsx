@@ -9,8 +9,8 @@ const libreBaskerville = Libre_Baskerville({
 });
 
 export const metadata: Metadata = {
-  title: "Lília & Eduardo: Lista de presentes",
-  description: "Lista de presentes para o casamento de Lília e Eduardo",
+  title: "Eduardo & Lília: Lista de presentes",
+  description: "Lista de presentes para o casamento de Eduardo e Lília",
   // Aqui dizemos pro Next gerar automaticamente <link rel="icon" href="/favicon-32x32.png">, etc.
   icons: {
     icon: [
