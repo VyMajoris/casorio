@@ -11,10 +11,19 @@ const libreBaskerville = Libre_Baskerville({
 export const metadata: Metadata = {
   title: "Lília & Eduardo: Lista de presentes",
   description: "Lista de presentes para o casamento de Lília e Eduardo",
+  // Aqui dizemos pro Next gerar automaticamente <link rel="icon" href="/favicon-32x32.png">, etc.
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon-32x32.png",   sizes: "32x32", type: "image/png" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/favicon.ico",         sizes: undefined, type: undefined },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+
   },
 };
+
 
 export default function RootLayout({
   children,
@@ -24,24 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={libreBaskerville.className}>
       <head>
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon.ico"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
+     
       </head>
       <body
         className="family-p"
