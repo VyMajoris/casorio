@@ -11,6 +11,9 @@ const libreBaskerville = Libre_Baskerville({
 export const metadata: Metadata = {
   title: "Lília & Eduardo: Lista de presentes",
   description: "Lista de presentes para o casamento de Lília e Eduardo",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
