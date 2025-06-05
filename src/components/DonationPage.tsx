@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { getFallbackGifts, getGifts, Gift } from "@/lib/gifts";
 import ProgressBar from "./ProgressBar";
-
 import GiftList from "./GiftList";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +12,6 @@ import {
   ArrowUturnUpIcon,
   ClipboardIcon,
 } from "@heroicons/react/24/outline";
-// Import the Libre Baskerville font from next/font/google
 import { Libre_Baskerville, Kablammo } from "next/font/google";
 
 const libreBaskerville = Libre_Baskerville({
@@ -27,9 +25,7 @@ interface DonationPageProps {
 }
 
 export default function DonationPage({}: DonationPageProps) {
-  // State to hold the total amount donated
   const [totalDonated, setTotalDonated] = useState(0);
-
   const [gifts, setGifts] = useState<Gift[]>([]);
 
   useEffect(() => {
@@ -51,13 +47,10 @@ export default function DonationPage({}: DonationPageProps) {
     fetchGifts();
   }, []);
 
-  // Calculate the goal from all gift values
   const goal = gifts.reduce((sum, gift) => sum + gift.value, 0);
 
-  // Function to handle donation submission
   const handleDonate = (amount: number) => {
     setTotalDonated((prevTotal) => prevTotal + amount);
-    // In a real app, you'd trigger a payment process here
   };
 
   function copytoClipboard(text: string) {
@@ -84,7 +77,6 @@ export default function DonationPage({}: DonationPageProps) {
     >
       <div className="w-full relative max-w-2xl shadow-2xl rounded-lg   bg-white/20">
         <div className="z-20 p-8 relative mt-20 ">
-          {/* Header Section */}
           <header className="text-center mb-8">
             <h1
               className="text-4xl font-bold mb-3 text-shadow-gold"
@@ -111,19 +103,16 @@ export default function DonationPage({}: DonationPageProps) {
             </div>
           </header>
 
-          {/* Progress Bar Section */}
           <section className="mb-8 w-full">
             <ProgressBar currentValue={totalDonated} maxValue={goal} />
           </section>
 
-          {/* Donation Form Section */}
           <section
             className="mb-8 p-6 rounded-md shadow-sm w-full border border-amber-100 relative overflow-hidden"
             style={{
               backgroundColor: "rgba(255,255,255,0.35)",
             }}
           >
-            {/* Vatican background image */}
             <Image
               src="/vatican.webp"
               alt="Vatican"
@@ -155,7 +144,7 @@ export default function DonationPage({}: DonationPageProps) {
                   color: "var(--text-bronze)",
                 }}
               >
-                Buscamos sua ajuda para construir nosso lar e  para criarmos nossos
+                Buscamos sua ajuda para construir nosso lar e para criarmos nossos
                 filhos na beleza e santidade.
               </h4>
               <div className="flex flex-col items-center ">
@@ -179,7 +168,9 @@ export default function DonationPage({}: DonationPageProps) {
 
                 <div className="flex flex-col sm:items-center items-stretch">
                   <div className="items-center flex flex-col sm:flex-row text-sm rounded-lg px-2.5 py-2 bg-gray-700 border-gray-600 text-gray-200">
-                    <span className="sm:mr-4 mb-2 sm:mb-0">Chave PIX: 11 995645748</span>
+                    <span className="sm:mr-4 mb-2 sm:mb-0">
+                      Chave PIX: 11 995645748
+                    </span>
                     <button
                       type="button"
                       onClick={async () => {
@@ -195,12 +186,7 @@ export default function DonationPage({}: DonationPageProps) {
                   </div>
 
                   <button
-                    className="mt-3 px-2.5 py-2 
-                    items-center cursor-pointer flex flex-row
-            
-                    justify-center
-                     text-sm rounded-lg bg-gray-700
-                      border-gray-600 text-gray-200 w-full sm:w-auto"
+                    className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row justify-center text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                     style={{ height: 48 }}
                     onClick={() => {
                       const modal = document.getElementById(
@@ -213,7 +199,7 @@ export default function DonationPage({}: DonationPageProps) {
                   >
                     Usar cartão de crédito
                   </button>
-                  
+
                   <p className="text-sm mt-5">
                     Atualizamos o valor arrecadado manualmente.
                   </p>
@@ -222,7 +208,6 @@ export default function DonationPage({}: DonationPageProps) {
             </div>
           </section>
 
-          {/* Gift List Section */}
           <section className="w-full">
             <div className="text-center mb-6">
               <div
@@ -233,26 +218,25 @@ export default function DonationPage({}: DonationPageProps) {
             <GiftList gifts={gifts} totalDonated={totalDonated} />
           </section>
 
-          {/* Footer Section */}
           <footer
             className="text-center mt-10 pt-6 border-t"
             style={{ borderColor: "var(--accent-blue)" }}
           >
             <div className="flex flex-col items-center mb-5">
-                <button
+              <button
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                 onClick={() => {
                   window.open("/convite1.pdf", "_blank");
                 }}
-                >
+              >
                 Link para o convite
-                </button>
-              <button
+              </button>
+              <Link
+                href="/latin-mass"
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
-                onClick={() => {}}
               >
                 Mais informações sobre a missa tridentina
-              </button>
+              </Link>
               <button
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                 onClick={() => {}}
