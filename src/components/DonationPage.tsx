@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { getFallbackGifts, getGifts, Gift } from "@/lib/gifts";
 import ProgressBar from "./ProgressBar";
