@@ -239,12 +239,14 @@ export default function DonationPage({}: DonationPageProps) {
             style={{ borderColor: "var(--accent-blue)" }}
           >
             <div className="flex flex-col items-center mb-5">
-              <button
+                <button
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
-                onClick={() => {}}
-              >
+                onClick={() => {
+                  window.open("/convite1.pdf", "_blank");
+                }}
+                >
                 Link para o convite
-              </button>
+                </button>
               <button
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                 onClick={() => {}}
