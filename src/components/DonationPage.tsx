@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { getFallbackGifts, getGifts, Gift } from "@/lib/gifts";
 import ProgressBar from "./ProgressBar";
 
@@ -27,6 +28,7 @@ interface DonationPageProps {
 }
 
 export default function DonationPage({}: DonationPageProps) {
+  const router = useRouter();
   // State to hold the total amount donated
   const [totalDonated, setTotalDonated] = useState(0);
 
@@ -249,7 +251,9 @@ export default function DonationPage({}: DonationPageProps) {
                 </button>
               <button
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
-                onClick={() => {}}
+                onClick={() => {
+                  router.push("/missatridentina");
+                }}
               >
                 Mais informações sobre a missa tridentina
               </button>
