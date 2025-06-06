@@ -77,7 +77,7 @@ export default function LatinMassInfo() {
                     {item.question}
                 </h3>
                 <p
-                  className="text-base"
+                  className="text-base whitespace-pre-wrap"
                   style={{
                     color: "var(--text-warm)",
                   }}
