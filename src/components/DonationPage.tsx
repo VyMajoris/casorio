@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from "react";
 import { getFallbackGifts, getGifts, Gift } from "@/lib/gifts";
 import ProgressBar from "./ProgressBar";
@@ -25,6 +27,7 @@ interface DonationPageProps {
 export default function DonationPage({}: DonationPageProps) {
   const [totalDonated, setTotalDonated] = useState(0);
   const [gifts, setGifts] = useState<Gift[]>([]);
+
 
   useEffect(() => {
     async function fetchGifts() {
