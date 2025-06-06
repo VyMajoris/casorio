@@ -9,7 +9,7 @@ interface GiftItemProps {
 const GiftItem: React.FC<GiftItemProps> = ({ gift, isUnlocked }) => {
   return (
     <div
-      className="relative rounded-lg overflow-hidden shadow-lg w-full aspect-[4/3] sm:aspect-square"
+      className="relative rounded-lg overflow-hidden shadow-lg w-full aspect-square"
         style={{
           backgroundImage: gift.image_url
             ? `url(${

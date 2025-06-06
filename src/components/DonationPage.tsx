@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { getFallbackGifts, getGifts, Gift } from "@/lib/gifts";
@@ -27,7 +27,6 @@ interface DonationPageProps {
 export default function DonationPage({}: DonationPageProps) {
   const [totalDonated, setTotalDonated] = useState(0);
   const [gifts, setGifts] = useState<Gift[]>([]);
-
 
   useEffect(() => {
     async function fetchGifts() {
@@ -145,8 +144,8 @@ export default function DonationPage({}: DonationPageProps) {
                   color: "var(--text-bronze)",
                 }}
               >
-                Buscamos sua ajuda para construir nosso lar e para criarmos nossos
-                filhos na beleza e santidade.
+                Buscamos sua ajuda para construir nosso lar e para criarmos
+                nossos filhos na beleza e santidade.
               </h4>
               <div className="flex flex-col items-center ">
                 <div
@@ -215,6 +214,13 @@ export default function DonationPage({}: DonationPageProps) {
                 className="w-12 h-0.5 mx-auto"
                 style={{ backgroundColor: "var(--text-bronze)" }}
               ></div>
+            </div>
+            <div>
+              <p className="text-sm mb-3">
+                Essa é nossa lista de presentes, para nos ajudar basta
+                contribuir com o valor desejado no PIX acima ou pelo cartão de
+                crédito
+              </p>
             </div>
             <GiftList gifts={gifts} totalDonated={totalDonated} />
           </section>
@@ -285,13 +291,41 @@ export default function DonationPage({}: DonationPageProps) {
             overflow: "hidden",
           }}
         />
+        <div
+          className="z-10 rounded-lg absolute top-30 left-0 w-[186px]  h-[900px]"
+          style={{
+            mixBlendMode: "multiply",
+            backgroundImage: "url('/lateral-decorations.png')",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "top center",
+            backgroundSize: "cover",
+            opacity: 0.2,
+            filter: " sepia(10%)",
+            transform: "scaleY(-1) ",
+            overflow: "hidden",
+          }}
+        />
+          <div
+          className="z-10 rounded-lg absolute top-35 right-0  w-[186px]  h-[900px]"
+          style={{
+            mixBlendMode: "multiply",
+            backgroundImage: "url('/lateral-decorations.png')",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "top center",
+            backgroundSize: "cover",
+            opacity: 0.2,
+            filter: " sepia(10%)",
+            transform: "scaleX(-1) ",
+            overflow: "hidden",
+          }}
+        />
 
         <div
-          className="absolute bottom-0 rotate-270 sepia-30 w-24 h-24 sm:w-[220px] sm:h-[220px]"
+          className="absolute bottom-0 rotate-270 sepia-30 w-[180px] h-[180px] sm:w-[220px] sm:h-[220px]"
           style={{ pointerEvents: "none" }}
         >
           <Image
-            src="/corner_ornamentation.png"
+            src="/corner_ornamentation2.png"
             alt="Ornamentação de canto"
             className=""
             width={1020}
@@ -302,11 +336,11 @@ export default function DonationPage({}: DonationPageProps) {
         </div>
 
         <div
-          className="absolute bottom-0 right-0 rotate-90 sepia-30 w-24 h-24 sm:w-[220px] sm:h-[220px]"
+          className="absolute bottom-0 right-0 rotate-90 sepia-30  w-[180px] h-[180px] sm:w-[220px] sm:h-[220px]"
           style={{ pointerEvents: "none", transform: "scaleX(-1)" }}
         >
           <Image
-            src="/corner_ornamentation.png"
+            src="/corner_ornamentation2.png"
             alt="Ornamentação de canto"
             className=""
             width={1020}
