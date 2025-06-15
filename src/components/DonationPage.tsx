@@ -77,21 +77,13 @@ export default function DonationPage({}: DonationPageProps) {
     >
       <div className="w-full relative max-w-2xl shadow-2xl rounded-lg   bg-white/20">
         <div className="z-20 p-8 relative mt-20 ">
-          <header className="text-center mb-8">
-            <h1
-              className="text-4xl font-bold mb-3 text-shadow-gold"
-              style={{
-                color: "var(--accent-blue)",
-              }}
-            >
-              Lista de Presentes
-            </h1>
-            <h2 className={`text-3xl mb-3 italic  `}>
+          <header className="text-center mb-5">
+            <h2 className={`text-4xl mb-3 italic  mt-5`}>
               <div style={{ lineHeight: 1 }}>Eduardo</div>
               <div style={{ lineHeight: 1 }}>&</div>
               <div style={{ lineHeight: 1 }}>Lília</div>
             </h2>
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-10">
               <Image
                 src="/logo_colorido_EL2.png"
                 alt="Contribua com um presente"
@@ -102,10 +94,6 @@ export default function DonationPage({}: DonationPageProps) {
               />
             </div>
           </header>
-
-          <section className="mb-8 w-full">
-            <ProgressBar currentValue={totalDonated} maxValue={goal} />
-          </section>
 
           <section
             className="mb-8 p-6 rounded-md shadow-sm w-full border border-amber-100 relative overflow-hidden"
@@ -128,7 +116,10 @@ export default function DonationPage({}: DonationPageProps) {
               priority={false}
             />
             <div className="relative z-10">
-              <h3
+              <section className="mb-8 w-full">
+                <ProgressBar currentValue={totalDonated} maxValue={goal} />
+              </section>
+              {/* <h3
                 className="text-2xl font-semibold text-center "
                 style={{
                   fontFamily: "var(--font-serif)",
@@ -136,8 +127,8 @@ export default function DonationPage({}: DonationPageProps) {
                 }}
               >
                 Ajude-nos a realizar nosso sonho:
-              </h3>
-              <h4
+              </h3> */}
+              {/* <h4
                 className="text font-light text-center mb-6 mt-3 px-4 sm:px-20"
                 style={{
                   fontFamily: "var(--font-serif)",
@@ -146,10 +137,10 @@ export default function DonationPage({}: DonationPageProps) {
               >
                 Buscamos sua ajuda para construir nosso lar e para criarmos
                 nossos filhos na beleza e santidade.
-              </h4>
+              </h4> */}
               <div className="flex flex-col items-center ">
                 <div
-                  className=" rounded-lg border-2 mb-4   "
+                  className=" rounded-lg border-2 mb-4 w-fit   "
                   style={{
                     borderColor: "var(--accent-blue)",
                     backgroundColor: "white",
@@ -158,15 +149,15 @@ export default function DonationPage({}: DonationPageProps) {
                   <Image
                     src="/qr-code.svg"
                     alt="Contribua com um presente"
-                    width={280}
-                    height={280}
+                    width={302}
+                    height={302}
                     className="rounded-lg   h-auto"
                     placeholder="blur"
                     blurDataURL="/images/donation-placeholder-blur.jpg"
                   />
                 </div>
 
-                <div className="flex flex-col sm:items-center items-stretch">
+                <div className="flex flex-col max-w-[302px] w-full">
                   <div className="items-center flex flex-col sm:flex-row text-sm rounded-lg px-2.5 py-2 bg-gray-700 border-gray-600 text-gray-200">
                     <span className="sm:mr-4 mb-2 sm:mb-0">
                       Chave PIX: 11 995645748
@@ -199,29 +190,20 @@ export default function DonationPage({}: DonationPageProps) {
                   >
                     Usar cartão de crédito
                   </button>
-
-                  <p className="text-sm mt-5">
-                    Atualizamos o valor arrecadado manualmente.
-                  </p>
                 </div>
               </div>
             </div>
           </section>
 
           <section className="w-full">
-            <div className="text-center mb-6">
-              <div
-                className="w-12 h-0.5 mx-auto"
-                style={{ backgroundColor: "var(--text-bronze)" }}
-              ></div>
-            </div>
             <div>
-              <p className="text-sm mb-3">
-                Essa é nossa lista de presentes, para nos ajudar basta
+              <p className="text-sm mb-6">
+                Essa é nossa lista de presentes. Para nos ajudar basta
                 contribuir com o valor desejado no PIX acima ou pelo cartão de
-                crédito
+                crédito. A porcentagem arrecadada é atualizada manualmente.
               </p>
             </div>
+
             <GiftList gifts={gifts} totalDonated={totalDonated} />
           </section>
 
@@ -244,12 +226,6 @@ export default function DonationPage({}: DonationPageProps) {
               >
                 Mais informações sobre a missa tridentina
               </Link>
-              <button
-                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
-                onClick={() => {}}
-              >
-                Dicas de vestimenta
-              </button>
             </div>
 
             <p className="mb-3 text-lg" style={{ color: "var(--text-bronze)" }}>
@@ -292,27 +268,27 @@ export default function DonationPage({}: DonationPageProps) {
           }}
         />
         <div
-          className="z-10 rounded-lg absolute top-30 left-0 w-[186px]  h-[900px]"
+          className="z-10 rounded-lg absolute top-30 left-0 h-[500px] w-[50%]  sm:w-[186px]  sm:h-[900px]"
           style={{
             mixBlendMode: "multiply",
             backgroundImage: "url('/lateral-decorations.png')",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "top center",
-            backgroundSize: "cover",
+            backgroundPosition: "top left",
+            backgroundSize: "contain",
             opacity: 0.2,
             filter: " sepia(10%)",
             transform: "scaleY(-1) ",
             overflow: "hidden",
           }}
         />
-          <div
-          className="z-10 rounded-lg absolute top-35 right-0  w-[186px]  h-[900px]"
+        <div
+          className="z-10 rounded-lg absolute top-30 right-0  h-[500px] w-[50%]  sm:w-[186px]  sm:h-[900px]"
           style={{
             mixBlendMode: "multiply",
             backgroundImage: "url('/lateral-decorations.png')",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "top center",
-            backgroundSize: "cover",
+            backgroundPosition: "top left",
+            backgroundSize: "contain",
             opacity: 0.2,
             filter: " sepia(10%)",
             transform: "scaleX(-1) ",

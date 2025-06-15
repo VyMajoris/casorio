@@ -100,8 +100,14 @@ export default function LatinMassInfo() {
               Voltar para a página principal
             </Link>
 
-            <p className="mt-6 mb-3 text-lg" style={{ color: "var(--text-bronze)" }}>
-              Ad majorem Dei gloriam
+             <p
+              className="italic text-base mt-5 mb-3 "
+              style={{
+                color: "var(--accent-blue)",
+                fontFamily: "var(--font-serif)",
+              }}
+            >
+              Nolite conformari huic sæculo
             </p>
 
             <div className="flex justify-center">
