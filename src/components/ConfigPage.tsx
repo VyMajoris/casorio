@@ -73,7 +73,7 @@ export default function ConfigPage() {
       await addDonation({
         value: donationAmount,
         method,
-        payer: payerName || null
+        payer: payerName || ""
       });
       
       setAmount("");
@@ -148,10 +148,15 @@ export default function ConfigPage() {
   }
 
   return (
-    <div className={`min-h-screen flex flex-col items-center py-10 px-4 ${libreBaskerville.className}`}>
+    <div
+      className={`min-h-screen flex flex-col items-center py-10 px-4 ${libreBaskerville.className}`}
+    >
       <div className="w-full max-w-4xl bg-white/20 backdrop-blur-sm rounded-lg shadow-2xl p-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold" style={{ color: "var(--text-bronze)" }}>
+          <h1
+            className="text-3xl font-bold"
+            style={{ color: "var(--text-bronze)" }}
+          >
             Painel Administrativo
           </h1>
           <Link
@@ -166,13 +171,20 @@ export default function ConfigPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Add Donation Form */}
           <div className="bg-white/30 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4" style={{ color: "var(--text-bronze)" }}>
+            <h2
+              className="text-xl font-semibold mb-4"
+              style={{ color: "var(--text-bronze)" }}
+            >
               Adicionar Doação
             </h2>
-            
+
             <form onSubmit={handleAddDonation} className="space-y-4">
               <div>
-                <label htmlFor="amount" className="block text-sm font-medium mb-2" style={{ color: "var(--text-bronze)" }}>
+                <label
+                  htmlFor="amount"
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: "var(--text-bronze)" }}
+                >
                   Valor (R$):
                 </label>
                 <input
@@ -186,9 +198,13 @@ export default function ConfigPage() {
                   required
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="method" className="block text-sm font-medium mb-2" style={{ color: "var(--text-bronze)" }}>
+                <label
+                  htmlFor="method"
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: "var(--text-bronze)" }}
+                >
                   Método de Pagamento:
                 </label>
                 <select
@@ -202,9 +218,13 @@ export default function ConfigPage() {
                   <option value="Outro">Outro</option>
                 </select>
               </div>
-              
+
               <div>
-                <label htmlFor="payerName" className="block text-sm font-medium mb-2" style={{ color: "var(--text-bronze)" }}>
+                <label
+                  htmlFor="payerName"
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: "var(--text-bronze)" }}
+                >
                   Nome do Doador (opcional):
                 </label>
                 <input
@@ -215,7 +235,7 @@ export default function ConfigPage() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isLoading}
@@ -224,9 +244,15 @@ export default function ConfigPage() {
                 {isLoading ? "Adicionando..." : "Adicionar Doação"}
               </button>
             </form>
-            
+
             {message && (
-              <p className={`mt-4 text-center ${message.includes("sucesso") ? "text-green-600" : "text-red-600"}`}>
+              <p
+                className={`mt-4 text-center ${
+                  message.includes("sucesso")
+                    ? "text-green-600"
+                    : "text-red-600"
+                }`}
+              >
                 {message}
               </p>
             )}
@@ -234,29 +260,43 @@ export default function ConfigPage() {
 
           {/* Donations Summary */}
           <div className="bg-white/30 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4" style={{ color: "var(--text-bronze)" }}>
+            <h2
+              className="text-xl font-semibold mb-4"
+              style={{ color: "var(--text-bronze)" }}
+            >
               Resumo das Doações
             </h2>
-            
+
             <div className="mb-6">
-              <div className="text-3xl font-bold mb-2" style={{ color: "var(--accent-blue)" }}>
-                R$ {totalDonated.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+              <div
+                className="text-3xl font-bold mb-2"
+                style={{ color: "var(--accent-blue)" }}
+              >
+                R${" "}
+                {totalDonated.toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}
               </div>
               <div className="text-sm text-gray-600">
                 Total arrecadado ({donations.length} doações)
               </div>
             </div>
-            
+
             <div className="space-y-3 max-h-96 overflow-y-auto">
               {donations.length === 0 ? (
-                <p className="text-gray-500 text-center py-4">Nenhuma doação registrada</p>
+                <p className="text-gray-500 text-center py-4">
+                  Nenhuma doação registrada
+                </p>
               ) : (
                 donations.map((donation) => (
                   <div key={donation.id} className="bg-white/50 rounded-md p-3">
                     <div className="flex justify-between items-start">
                       <div>
                         <div className="font-semibold">
-                          R$ {donation.value.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                          R${" "}
+                          {donation.value.toLocaleString("pt-BR", {
+                            minimumFractionDigits: 2,
+                          })}
                         </div>
                         <div className="text-sm text-gray-600">
                           {donation.method}
@@ -264,7 +304,9 @@ export default function ConfigPage() {
                         </div>
                       </div>
                       <div className="text-xs text-gray-500">
-                        {new Date(donation.created_at).toLocaleDateString("pt-BR")}
+                        {new Date(donation.created_at).toLocaleDateString(
+                          "pt-BR"
+                        )}
                       </div>
                     </div>
                   </div>
@@ -272,49 +314,56 @@ export default function ConfigPage() {
               )}
             </div>
           </div>
-          </div>
         </div>
+      </div>
 
-        {/* Donations Table */}
-        <div className="bg-white/30 rounded-lg p-6 mt-8">
-          <h2 className="text-xl font-semibold mb-4" style={{ color: "var(--text-bronze)" }}>
-            Todas as Doações
-          </h2>
+      {/* Donations Table */}
+      <div className="bg-white/30 rounded-lg p-6 mt-8">
+        <h2
+          className="text-xl font-semibold mb-4"
+          style={{ color: "var(--text-bronze)" }}
+        >
+          Todas as Doações
+        </h2>
 
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr className="text-left">
-                  <th className="px-2 py-1">Valor</th>
-                  <th className="px-2 py-1">Método</th>
-                  <th className="px-2 py-1">Doador</th>
-                  <th className="px-2 py-1">Data</th>
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-sm">
+            <thead>
+              <tr className="text-left">
+                <th className="px-2 py-1">Valor</th>
+                <th className="px-2 py-1">Método</th>
+                <th className="px-2 py-1">Doador</th>
+                <th className="px-2 py-1">Data</th>
+              </tr>
+            </thead>
+            <tbody>
+              {donations.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="text-center py-4 text-gray-500">
+                    Nenhuma doação registrada
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {donations.length === 0 ? (
-                  <tr>
-                    <td colSpan={4} className="text-center py-4 text-gray-500">
-                      Nenhuma doação registrada
+              ) : (
+                donations.map((donation) => (
+                  <tr key={donation.id} className="odd:bg-white/20">
+                    <td className="px-2 py-1">
+                      R${" "}
+                      {donation.value.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="px-2 py-1">{donation.method}</td>
+                    <td className="px-2 py-1">{donation.payer || "-"}</td>
+                    <td className="px-2 py-1">
+                      {new Date(donation.created_at).toLocaleDateString(
+                        "pt-BR"
+                      )}
                     </td>
                   </tr>
-                ) : (
-                  donations.map((donation) => (
-                    <tr key={donation.id} className="odd:bg-white/20">
-                      <td className="px-2 py-1">
-                        R$ {donation.value.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
-                      </td>
-                      <td className="px-2 py-1">{donation.method}</td>
-                      <td className="px-2 py-1">{donation.payer || "-"}</td>
-                      <td className="px-2 py-1">
-                        {new Date(donation.created_at).toLocaleDateString("pt-BR")}
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
