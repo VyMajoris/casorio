@@ -272,6 +272,49 @@ export default function ConfigPage() {
               )}
             </div>
           </div>
+          </div>
+        </div>
+
+        {/* Donations Table */}
+        <div className="bg-white/30 rounded-lg p-6 mt-8">
+          <h2 className="text-xl font-semibold mb-4" style={{ color: "var(--text-bronze)" }}>
+            Todas as Doações
+          </h2>
+
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm">
+              <thead>
+                <tr className="text-left">
+                  <th className="px-2 py-1">Valor</th>
+                  <th className="px-2 py-1">Método</th>
+                  <th className="px-2 py-1">Doador</th>
+                  <th className="px-2 py-1">Data</th>
+                </tr>
+              </thead>
+              <tbody>
+                {donations.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} className="text-center py-4 text-gray-500">
+                      Nenhuma doação registrada
+                    </td>
+                  </tr>
+                ) : (
+                  donations.map((donation) => (
+                    <tr key={donation.id} className="odd:bg-white/20">
+                      <td className="px-2 py-1">
+                        R$ {donation.value.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                      </td>
+                      <td className="px-2 py-1">{donation.method}</td>
+                      <td className="px-2 py-1">{donation.payer || "-"}</td>
+                      <td className="px-2 py-1">
+                        {new Date(donation.created_at).toLocaleDateString("pt-BR")}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
