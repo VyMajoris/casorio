@@ -9,7 +9,6 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   currentValue,
   maxValue,
 }) => {
-  const percentage = maxValue > 0 ? Math.min((10000 / maxValue) * 100, 100) : 0;
 
   return (
     <div className="w-full">
