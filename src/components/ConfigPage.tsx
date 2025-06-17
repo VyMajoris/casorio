@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { addDonation, getDonations, type Donation } from "@/lib/donations";
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { addDonation, getDonations, getTotalDonated, type Donation } from "@/lib/donations";
 import { Libre_Baskerville } from "next/font/google";
+import Link from "next/link";
+import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -12,91 +12,98 @@ const libreBaskerville = Libre_Baskerville({
   style: ["normal", "italic"],
 });
 
-const ADMIN_PASSWORD = "casorio2025"; // Simple hardcoded password
-
 export default function ConfigPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
-  const [authError, setAuthError] = useState("");
-  
-  // Form states
-  const [value, setValue] = useState("");
+  const [amount, setAmount] = useState("");
   const [method, setMethod] = useState("PIX");
-  const [payer, setPayer] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
-  
-  // Donations list
+  const [payerName, setPayerName] = useState("");
   const [donations, setDonations] = useState<Donation[]>([]);
   const [totalDonated, setTotalDonated] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isClient, setIsClient] = useState(false);
+
+  // Fix hydration by ensuring client-side rendering
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchDonations();
+    if (isAuthenticated && isClient) {
+      loadDonations();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isClient]);
 
-  const fetchDonations = async () => {
+  const loadDonations = async () => {
     try {
-      const fetchedDonations = await getDonations();
-      setDonations(fetchedDonations);
-      const total = fetchedDonations.reduce((sum, donation) => sum + donation.value, 0);
+      const [donationsList, total] = await Promise.all([
+        getDonations(),
+        getTotalDonated()
+      ]);
+      setDonations(donationsList);
       setTotalDonated(total);
     } catch (error) {
-      console.error("Error fetching donations:", error);
+      console.error("Error loading donations:", error);
+      setMessage("Erro ao carregar doações");
     }
   };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
+    if (password === "casorio2025") {
       setIsAuthenticated(true);
-      setAuthError("");
+      setMessage("");
     } else {
-      setAuthError("Senha incorreta");
+      setMessage("Senha incorreta");
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleAddDonation = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitMessage("");
+    
+    const donationAmount = parseFloat(amount);
+    if (isNaN(donationAmount) || donationAmount <= 0) {
+      setMessage("Por favor, insira um valor válido");
+      return;
+    }
 
+    setIsLoading(true);
     try {
-      const donationValue = parseFloat(value);
-      if (isNaN(donationValue) || donationValue <= 0) {
-        setSubmitMessage("Por favor, insira um valor válido.");
-        return;
-      }
-
       await addDonation({
-        value: donationValue,
+        value: donationAmount,
         method,
-        payer: payer.trim() || "Anônimo"
+        payer: payerName || null
       });
-
-      // Reset form
-      setValue("");
-      setMethod("PIX");
-      setPayer("");
-      setSubmitMessage("Doação adicionada com sucesso!");
       
-      // Refresh donations list
-      await fetchDonations();
+      setAmount("");
+      setPayerName("");
+      setMessage("Doação adicionada com sucesso!");
+      
+      // Reload donations
+      await loadDonations();
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => setMessage(""), 3000);
     } catch (error) {
       console.error("Error adding donation:", error);
-      setSubmitMessage("Erro ao adicionar doação. Tente novamente.");
+      setMessage("Erro ao adicionar doação");
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
+
+  // Don't render anything until client-side hydration is complete
+  if (!isClient) {
+    return null;
+  }
 
   if (!isAuthenticated) {
     return (
       <div className={`min-h-screen flex flex-col items-center justify-center py-10 px-4 ${libreBaskerville.className}`}>
-        <div className="w-full max-w-md bg-white/20 shadow-2xl rounded-lg p-8">
+        <div className="w-full max-w-md bg-white/20 backdrop-blur-sm rounded-lg shadow-2xl p-8">
           <h1 className="text-2xl font-bold text-center mb-6" style={{ color: "var(--text-bronze)" }}>
-            Acesso Administrativo
+            Painel Administrativo
           </h1>
           
           <form onSubmit={handleLogin} className="space-y-4">
@@ -112,9 +119,6 @@ export default function ConfigPage() {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
-              {authError && (
-                <p className="mt-1 text-sm text-red-600">{authError}</p>
-              )}
             </div>
             
             <button
@@ -124,6 +128,10 @@ export default function ConfigPage() {
               Entrar
             </button>
           </form>
+          
+          {message && (
+            <p className="mt-4 text-center text-red-600">{message}</p>
+          )}
           
           <div className="mt-6 text-center">
             <Link
@@ -141,45 +149,44 @@ export default function ConfigPage() {
 
   return (
     <div className={`min-h-screen flex flex-col items-center py-10 px-4 ${libreBaskerville.className}`}>
-      <div className="w-full max-w-4xl bg-white/20 shadow-2xl rounded-lg p-8">
-        <div className="flex justify-between items-center mb-8">
+      <div className="w-full max-w-4xl bg-white/20 backdrop-blur-sm rounded-lg shadow-2xl p-8">
+        <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold" style={{ color: "var(--text-bronze)" }}>
             Painel Administrativo
           </h1>
           <Link
             href="/"
-            className="inline-flex items-center px-4 py-2 text-sm rounded-lg bg-gray-700 text-gray-200 hover:bg-gray-600 transition-colors"
+            className="inline-flex items-center px-3 py-2 text-sm bg-gray-700 text-white rounded-md hover:bg-gray-600"
           >
-            <ArrowUturnLeftIcon className="w-4 h-4 mr-2" />
+            <ArrowUturnLeftIcon className="w-4 h-4 mr-1" />
             Voltar
           </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Add Donation Form */}
-          <div className="bg-white/35 rounded-lg p-6 border border-amber-100">
+          <div className="bg-white/30 rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-4" style={{ color: "var(--text-bronze)" }}>
-              Adicionar Nova Doação
+              Adicionar Doação
             </h2>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleAddDonation} className="space-y-4">
               <div>
-                <label htmlFor="value" className="block text-sm font-medium mb-2" style={{ color: "var(--text-bronze)" }}>
+                <label htmlFor="amount" className="block text-sm font-medium mb-2" style={{ color: "var(--text-bronze)" }}>
                   Valor (R$):
                 </label>
                 <input
                   type="number"
-                  id="value"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
+                  id="amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
                   step="0.01"
                   min="0.01"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="0,00"
                   required
                 />
               </div>
-
+              
               <div>
                 <label htmlFor="method" className="block text-sm font-medium mb-2" style={{ color: "var(--text-bronze)" }}>
                   Método de Pagamento:
@@ -195,39 +202,38 @@ export default function ConfigPage() {
                   <option value="Outro">Outro</option>
                 </select>
               </div>
-
+              
               <div>
-                <label htmlFor="payer" className="block text-sm font-medium mb-2" style={{ color: "var(--text-bronze)" }}>
+                <label htmlFor="payerName" className="block text-sm font-medium mb-2" style={{ color: "var(--text-bronze)" }}>
                   Nome do Doador (opcional):
                 </label>
                 <input
                   type="text"
-                  id="payer"
-                  value={payer}
-                  onChange={(e) => setPayer(e.target.value)}
+                  id="payerName"
+                  value={payerName}
+                  onChange={(e) => setPayerName(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Nome do doador"
                 />
               </div>
-
+              
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isLoading}
                 className="w-full bg-gray-700 hover:bg-gray-600 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded-md transition duration-300"
               >
-                {isSubmitting ? "Adicionando..." : "Adicionar Doação"}
+                {isLoading ? "Adicionando..." : "Adicionar Doação"}
               </button>
-
-              {submitMessage && (
-                <p className={`text-sm ${submitMessage.includes("sucesso") ? "text-green-600" : "text-red-600"}`}>
-                  {submitMessage}
-                </p>
-              )}
             </form>
+            
+            {message && (
+              <p className={`mt-4 text-center ${message.includes("sucesso") ? "text-green-600" : "text-red-600"}`}>
+                {message}
+              </p>
+            )}
           </div>
 
           {/* Donations Summary */}
-          <div className="bg-white/35 rounded-lg p-6 border border-amber-100">
+          <div className="bg-white/30 rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-4" style={{ color: "var(--text-bronze)" }}>
               Resumo das Doações
             </h2>
@@ -240,20 +246,21 @@ export default function ConfigPage() {
                 Total arrecadado ({donations.length} doações)
               </div>
             </div>
-
+            
             <div className="space-y-3 max-h-96 overflow-y-auto">
               {donations.length === 0 ? (
-                <p className="text-gray-500 text-center py-4">Nenhuma doação registrada ainda.</p>
+                <p className="text-gray-500 text-center py-4">Nenhuma doação registrada</p>
               ) : (
                 donations.map((donation) => (
-                  <div key={donation.id} className="bg-white/50 rounded-lg p-3 border border-gray-200">
+                  <div key={donation.id} className="bg-white/50 rounded-md p-3">
                     <div className="flex justify-between items-start">
                       <div>
                         <div className="font-semibold">
                           R$ {donation.value.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                         </div>
                         <div className="text-sm text-gray-600">
-                          {donation.payer} • {donation.method}
+                          {donation.method}
+                          {donation.payer && ` • ${donation.payer}`}
                         </div>
                       </div>
                       <div className="text-xs text-gray-500">
