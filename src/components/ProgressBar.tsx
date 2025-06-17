@@ -9,6 +9,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   currentValue,
   maxValue,
 }) => {
+  const percentage = maxValue > 0 ? Math.min((currentValue / maxValue) * 100, 100) : 0;
 
   return (
     <div className="w-full">
@@ -17,7 +18,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
           className="text-xl font-bold"
           style={{ color: "var(--accent-blue)" }}
         >
-        Agradecemos os {currentValue.toFixed(0)}% dos presentes já recebidos   
+        Agradecemos os {percentage.toFixed(0)}% dos presentes já recebidos
         </span>
       </div>
 
@@ -31,7 +32,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
         <div
           className="h-6 rounded-full transition-all duration-700 ease-out shadow-sm bg-slate-500"
           style={{
-            width: `${currentValue}%`,
+            width: `${percentage}%`,
           }}
           role="progressbar"
           aria-valuenow={currentValue}
