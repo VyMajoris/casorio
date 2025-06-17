@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getFallbackGifts, getGifts, Gift } from "@/lib/gifts";
+import { getTotalDonated } from "@/lib/donations";
 import ProgressBar from "./ProgressBar";
 import GiftList from "./GiftList";
 import Image from "next/image";
@@ -29,8 +30,9 @@ export default function DonationPage({}: DonationPageProps) {
   const [gifts, setGifts] = useState<Gift[]>([]);
 
   useEffect(() => {
-    async function fetchGifts() {
+    async function fetchData() {
       try {
+        // Fetch gifts
         let fetchedGifts = await getGifts();
         if (!fetchedGifts || fetchedGifts.length === 0) {
           console.log("No gifts found in Supabase, using fallback data");
@@ -38,13 +40,17 @@ export default function DonationPage({}: DonationPageProps) {
         }
         localStorage.setItem("gifts", JSON.stringify(fetchedGifts));
         setGifts(fetchedGifts);
+
+        // Fetch total donated amount
+        const donated = await getTotalDonated();
+        setTotalDonated(donated);
       } catch (error) {
-        console.error("Error fetching gifts from Supabase:", error);
+        console.error("Error fetching data:", error);
         const fallbackGifts = await getFallbackGifts();
         setGifts(fallbackGifts);
       }
     }
-    fetchGifts();
+    fetchData();
   }, []);
 
   const goal = gifts.reduce((sum, gift) => sum + gift.value, 0);
