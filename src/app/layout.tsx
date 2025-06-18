@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { Libre_Baskerville } from "next/font/google";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -47,4 +49,6 @@ export default function RootLayout({
       </body>
     </html>
   );
+
+
 }

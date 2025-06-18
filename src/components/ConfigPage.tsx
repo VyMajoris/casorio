@@ -5,6 +5,8 @@ import { addDonation, getDonations, getTotalDonated, type Donation } from "@/lib
 import { Libre_Baskerville } from "next/font/google";
 import Link from "next/link";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
+import { createClient } from "@supabase/supabase-js";
+import { getSupabase } from "@/lib/supabase";
 
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -23,6 +25,52 @@ export default function ConfigPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isClient, setIsClient] = useState(false);
+
+ 
+
+  const fetchPassword = async (): Promise<string | null> => {
+    const supabase = getSupabase();
+    if (!supabase) {
+      console.error("Supabase client is not initialized");
+      return null;
+    }
+    const { data, error } = await supabase
+      .from("password")
+      .select("password")
+      .single();
+    if (error) {
+      console.error("Error fetching password:", error);
+      return null;
+    }
+    return data?.password ?? null;
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const dbPassword = await fetchPassword();
+      if (dbPassword && password === dbPassword) {
+        setIsAuthenticated(true);
+        setMessage("");
+        sessionStorage.setItem("adminPassword", password);
+      } else {
+        setMessage("Senha incorreta");
+      }
+    } catch (err) {
+      setMessage("Erro ao verificar senha");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const storedPassword = sessionStorage.getItem("adminPassword");
+
+    if (storedPassword === "gdma") {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   // Fix hydration by ensuring client-side rendering
   useEffect(() => {
@@ -49,15 +97,7 @@ export default function ConfigPage() {
     }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === "casorio2025") {
-      setIsAuthenticated(true);
-      setMessage("");
-    } else {
-      setMessage("Senha incorreta");
-    }
-  };
+
 
   const handleAddDonation = async (e: React.FormEvent) => {
     e.preventDefault();
