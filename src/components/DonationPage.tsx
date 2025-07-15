@@ -232,6 +232,15 @@ export default function DonationPage({}: DonationPageProps) {
               >
                 Mais informações sobre a missa tridentina
               </Link>
+
+               <Link
+                href="https://forms.gle/bLZAz63kGTXGQoWd9"
+                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
+              >
+                Confirmação de presença
+              </Link>
+
+
             </div>
 
             <p className="mb-3 text-lg" style={{ color: "var(--text-bronze)" }}>

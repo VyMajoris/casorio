@@ -32,18 +32,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={libreBaskerville.className}>
+    <html lang="en" className={libreBaskerville.className}   style={{
+          backgroundImage: 'url("/background_texture.png")',
+          backgroundRepeat: "repeat",
+          backgroundSize: "auto",
+          backgroundAttachment: "fixed",
+        }}>
       <head>
      
       </head>
       <body
         className="family-p"
-        style={{
+          style={{
           backgroundImage: 'url("/background_texture.png")',
           backgroundRepeat: "repeat",
           backgroundSize: "auto",
           backgroundAttachment: "fixed",
         }}
+      
       >
         {children}
       </body>
