@@ -221,7 +221,7 @@ export default function DonationPage({}: DonationPageProps) {
               <button
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                 onClick={() => {
-                  window.open("/https://cdn.jsdelivr.net/gh/VyMajoris/casorio@v2025-07-16/public/convite-casamento-eduardo-lilia.pdf", "_blank");
+                  window.open("https://cdn.jsdelivr.net/gh/VyMajoris/casorio@v2025-07-16/public/convite-casamento-eduardo-lilia.pdf", "_blank");
                 }}
               >
                 Link para o convite
