@@ -14,6 +14,10 @@
   --text-bronze: #977b4f;
   --text-warm: #a0522d;
 }
+@theme {
+  --breakpoint-xs: 30rem;
+
+}
 
 
 @theme inline {
