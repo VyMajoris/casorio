@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
       destination: "https://forms.gle/VwBT7ExR2YzY6NTK7",
       permanent: true,
     },
+    {
+      source: "/comemoração",
+      destination: "https://forms.gle/VwBT7ExR2YzY6NTK7",
+      permanent: true,
+    },
   ],
 };
 
