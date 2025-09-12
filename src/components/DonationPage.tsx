@@ -11,7 +11,11 @@ import {
   ArrowTopRightOnSquareIcon,
   ArrowUturnLeftIcon,
   ArrowUturnUpIcon,
+  BookOpenIcon,
+  CheckIcon,
   ClipboardIcon,
+  EnvelopeOpenIcon,
+  InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { Libre_Baskerville, Kablammo } from "next/font/google";
 
@@ -221,26 +225,38 @@ export default function DonationPage({}: DonationPageProps) {
               <button
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
                 onClick={() => {
-                  window.open("https://cdn.jsdelivr.net/gh/VyMajoris/casorio@v2025-07-16/public/convite-casamento-eduardo-lilia.pdf", "_blank");
+                  window.open(
+                    "https://cdn.jsdelivr.net/gh/VyMajoris/casorio@v2025-07-16/public/convite-casamento-eduardo-lilia.pdf",
+                    "_blank"
+                  );
                 }}
               >
+                <EnvelopeOpenIcon className="w-5 h-5 mr-2" />
                 Link para o convite
               </button>
               <Link
                 href="/latin-mass"
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
               >
-                Mais informações sobre a missa tridentina
+                <InformationCircleIcon className="w-5 h-5 mr-2" />
+                Mais informações sobre a Missa Tridentina
               </Link>
 
-               <Link
+              <Link
+                href="https://salvemaria.com.br/wp-content/uploads/2018/04/Ordinario-da-Santa-Missa.pdf"
+                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
+              >
+                <BookOpenIcon className="w-5 h-5 mr-2" />
+                Download do Ordinário da Missa
+              </Link>
+
+              <Link
                 href="https://forms.gle/bLZAz63kGTXGQoWd9"
                 className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
               >
+                <CheckIcon className="w-5 h-5 mr-2" />
                 Confirmação de presença
               </Link>
-
-
             </div>
 
             <p className="mb-3 text-lg" style={{ color: "var(--text-bronze)" }}>

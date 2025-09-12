@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
+import { ArrowUturnLeftIcon, BookOpenIcon } from "@heroicons/react/24/outline";
 import { Libre_Baskerville } from "next/font/google";
 import { useEffect, useState } from "react";
 import {
@@ -57,6 +57,14 @@ export default function LatinMassInfo() {
                 className="rounded-lg shadow-lg"
               />
             </div>
+
+            <Link
+              href="https://salvemaria.com.br/wp-content/uploads/2018/04/Ordinario-da-Santa-Missa.pdf"
+              className="inline-flex items-center mt-8 px-4 py-2 text-sm rounded-lg bg-gray-700 text-gray-200 hover:bg-gray-600 transition-colors"
+            >
+              <BookOpenIcon className="w-5 h-5 mr-2" />
+              Download do Ordinário da Missa
+            </Link>
           </header>
 
           <section className="mb-8 space-y-6">
