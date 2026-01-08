@@ -14,14 +14,14 @@ import "swiper/css/pagination";
 
 const photos = [
   { src: "/fotos/1.jpeg", position: "center 35%" },
-  { src: "/fotos/2.jpeg", position: "center 45%" },
+  { src: "/fotos/2.jpeg", position: "center 5%" },
   { src: "/fotos/3.jpeg", position: "center 35%" },
   { src: "/fotos/4.jpeg", position: "center 15%" },
   { src: "/fotos/5.jpeg", position: "center 0%" },
   { src: "/fotos/6.jpeg", position: "center 15%" },
   { src: "/fotos/7.jpeg", position: "center 5%" },
   { src: "/fotos/8.jpeg", position: "center 35%" },
-  { src: "/fotos/9.jpeg", position: "center 50%" },
+  { src: "/fotos/9.jpeg", position: "center 15%" },
 ];
 
 export default function PhotoCarousel() {
