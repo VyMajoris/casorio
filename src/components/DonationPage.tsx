@@ -5,6 +5,7 @@ import { getFallbackGifts, getGifts, Gift } from "@/lib/gifts";
 import { getTotalDonated } from "@/lib/donations";
 import ProgressBar from "./ProgressBar";
 import GiftList from "./GiftList";
+import PhotoCarousel from "./PhotoCarousel";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -253,6 +254,10 @@ export default function DonationPage({}: DonationPageProps) {
             </div>
 
             <GiftList gifts={gifts} totalDonated={totalDonated} />
+          </section>
+
+          <section className="w-full mb-8">
+             <PhotoCarousel />
           </section>
 
           <footer
