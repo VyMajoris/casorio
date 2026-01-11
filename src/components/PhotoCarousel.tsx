@@ -22,6 +22,7 @@ const photos = [
   { src: "/fotos/7.jpeg", position: "center 5%" },
   { src: "/fotos/8.jpeg", position: "center 35%" },
   { src: "/fotos/9.jpeg", position: "center 15%" },
+  { src: "/fotos/10.jpeg", position: "center 0%" },
 ];
 
 export default function PhotoCarousel() {
