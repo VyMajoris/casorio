@@ -247,9 +247,7 @@ export default function DonationPage({}: DonationPageProps) {
           <section className="w-full">
             <div>
               <p className="text-sm mb-6">
-                Essa é nossa lista de presentes. Para nos ajudar basta
-                contribuir com o valor desejado no PIX acima ou pelo cartão de
-                crédito. A porcentagem arrecadada é atualizada manualmente.
+                Essa é a nossa lista de presentes. Para nos ajudar, você pode contribuir com o valor que se sentir à vontade — não é necessário cobrir o valor total do item — via PIX ou cartão de crédito. A porcentagem arrecadada é atualizada manualmente.
               </p>
             </div>
 
