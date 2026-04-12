@@ -17,6 +17,7 @@ import {
   ClipboardIcon,
   EnvelopeOpenIcon,
   InformationCircleIcon,
+  PhotoIcon,
 } from "@heroicons/react/24/outline";
 import { Libre_Baskerville, Kablammo } from "next/font/google";
 
@@ -140,6 +141,14 @@ export default function DonationPage({}: DonationPageProps) {
               >
                 <CheckIcon className="w-5 h-5 mr-2" />
                 Confirmação de presença
+              </Link>
+
+              <Link
+                href="/photos"
+                className="mt-3 px-2.5 py-2 items-center cursor-pointer flex flex-row text-sm rounded-lg bg-gray-700 border-gray-600 text-gray-200 w-full sm:w-auto"
+              >
+                <PhotoIcon className="w-5 h-5 mr-2" />
+                Álbum de fotos
               </Link>
             </div>
           </header>

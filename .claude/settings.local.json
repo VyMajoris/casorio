@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(npx next:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm install:*)",
+      "Bash(npx playwright:*)",
+      "Bash(curl:*)",
+      "Bash(URL=http://localhost:3001/photos OUT=tmp_shot_1_top.png node tmp_shot.mjs)",
+      "Bash(URL=http://localhost:3001/photos OUT=tmp_shot_1_full.png FULL=1 node tmp_shot.mjs)",
+      "Bash(URL=http://localhost:3001/photos OUT=tmp_shot_2_full.png FULL=1 node tmp_shot.mjs)",
+      "Bash(URL=http://localhost:3001/photos OUT=tmp_shot_2_scroll.png SCROLL=400 node tmp_shot.mjs)",
+      "Bash(node tmp_scroll_check.mjs)",
+      "Bash(URL=http://localhost:3001/photos OUT=tmp_shot_3_full.png FULL=1 node tmp_shot.mjs)",
+      "Bash(URL=http://localhost:3001/photos OUT=tmp_shot_3_scroll.png SCROLL=800 node tmp_shot.mjs)",
+      "Bash(URL=http://localhost:3001/photos OUT=tmp_shot_3_scroll2.png SCROLL=1500 node tmp_shot.mjs)",
+      "Bash(URL=http://localhost:3001/photos OUT=tmp_shot_4_narrow.png W=360 H=780 node tmp_shot.mjs)"
+    ]
+  }
+}

@@ -57,3 +57,11 @@ body {
 .text-shadow-gold {
   text-shadow: 0 1px 2px rgba(212, 175, 55, 0.2);
 }
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
