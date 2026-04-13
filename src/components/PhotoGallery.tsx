@@ -8,6 +8,7 @@ import {
   ArrowUturnLeftIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  DevicePhoneMobileIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Libre_Baskerville, Cormorant_Garamond } from "next/font/google";
@@ -45,6 +46,8 @@ export default function PhotoGallery() {
   const touchStartX = useRef(0);
 
   const [downloading, setDownloading] = useState(false);
+  const [showRotateHint, setShowRotateHint] = useState(false);
+  const lightboxRef = useRef<HTMLDivElement>(null);
 
   const flat = useMemo(() => flattenGroups(groups), [groups]);
 
@@ -102,6 +105,40 @@ export default function PhotoGallery() {
     const gi = flat[open]?.groupIndex;
     if (gi !== undefined && gi !== activeGroup) setActiveGroup(gi);
   }, [open, activeGroup]);
+
+  useEffect(() => {
+    if (open === null) {
+      setShowRotateHint(false);
+      return;
+    }
+    const isMobile =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 900);
+    if (!isMobile) return;
+
+    const update = () => {
+      const portrait = window.matchMedia("(orientation: portrait)").matches;
+      setShowRotateHint(portrait);
+    };
+    update();
+
+    const el = lightboxRef.current;
+    const orientation = (
+      screen as unknown as { orientation?: { lock?: (o: string) => Promise<void> } }
+    ).orientation;
+    if (el?.requestFullscreen && orientation?.lock) {
+      el.requestFullscreen()
+        .then(() => orientation.lock?.("landscape"))
+        .catch(() => {});
+    }
+
+    const mq = window.matchMedia("(orientation: portrait)");
+    mq.addEventListener("change", update);
+    return () => {
+      mq.removeEventListener("change", update);
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    };
+  }, [open]);
 
   const current = open !== null ? flat[open] : null;
   const activePhotos = groups[activeGroup]?.photos ?? [];
@@ -269,11 +306,11 @@ export default function PhotoGallery() {
 
       {current && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          ref={lightboxRef}
+          className="fixed inset-0 z-50"
           style={{
             background:
-              "radial-gradient(ellipse at center, rgba(40,30,20,0.94) 0%, rgba(15,10,5,0.98) 100%)",
-            backdropFilter: "blur(6px)",
+              "radial-gradient(ellipse at center, rgba(20,15,10,0.98) 0%, rgba(5,3,2,1) 100%)",
           }}
           onClick={close}
           onTouchStart={(e) => (touchStartX.current = e.touches[0].clientX)}
@@ -283,15 +320,45 @@ export default function PhotoGallery() {
             else if (diff < -50) prev();
           }}
         >
+          <img
+            key={current.id}
+            src={fullUrl(current.id)}
+            alt={current.caption ?? ""}
+            width={current.width}
+            height={current.height}
+            className="absolute inset-0 w-full h-full object-contain select-none"
+            style={{ animation: "photoFadeIn 260ms ease-out" }}
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          <div
+            className={`absolute top-4 left-1/2 -translate-x-1/2 z-[60] px-4 py-1.5 rounded-full bg-black/55 backdrop-blur-sm border border-white/20 text-white text-sm tracking-[0.3em] ${cormorant.className}`}
+          >
+            {String(open! + 1).padStart(2, "0")}
+            <span className="mx-2 opacity-60">/</span>
+            {String(flat.length).padStart(2, "0")}
+          </div>
+
+          <button
+            aria-label="Fechar"
+            onClick={(e) => {
+              e.stopPropagation();
+              close();
+            }}
+            className="absolute top-4 right-4 z-[60] p-2.5 rounded-full bg-black/55 hover:bg-black/75 backdrop-blur-sm border border-white/30 text-white transition"
+          >
+            <XMarkIcon className="w-6 h-6" strokeWidth={2.2} />
+          </button>
+
           <button
             aria-label="Anterior"
             onClick={(e) => {
               e.stopPropagation();
               prev();
             }}
-            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-white/80 hover:text-white transition"
+            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-[60] p-3 sm:p-4 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border-2 border-white/40 text-white shadow-[0_6px_20px_rgba(0,0,0,0.6)] transition"
           >
-            <ChevronLeftIcon className="w-6 h-6" />
+            <ChevronLeftIcon className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.5} />
           </button>
 
           <button
@@ -300,106 +367,104 @@ export default function PhotoGallery() {
               e.stopPropagation();
               next();
             }}
-            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-white/80 hover:text-white transition"
+            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-[60] p-3 sm:p-4 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border-2 border-white/40 text-white shadow-[0_6px_20px_rgba(0,0,0,0.6)] transition"
           >
-            <ChevronRightIcon className="w-6 h-6" />
+            <ChevronRightIcon className="w-7 h-7 sm:w-8 sm:h-8" strokeWidth={2.5} />
           </button>
 
-          <button
-            aria-label="Fechar"
-            onClick={(e) => {
-              e.stopPropagation();
-              close();
-            }}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-white/80 hover:text-white transition"
-          >
-            <XMarkIcon className="w-6 h-6" />
-          </button>
-
-          <div
-            className={`absolute top-5 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-[0.3em] ${cormorant.className}`}
-          >
-            {String(open! + 1).padStart(2, "0")}
-            <span className="mx-2 opacity-50">/</span>
-            {String(flat.length).padStart(2, "0")}
-          </div>
-
-          <figure
-            className="max-w-[92vw] flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              key={current.id}
-              src={fullUrl(current.id)}
-              alt={current.caption ?? ""}
-              width={current.width}
-              height={current.height}
-              className="max-w-[92vw] max-h-[70vh] sm:max-h-[74vh] w-auto h-auto object-contain shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)]"
-              style={{
-                animation: "photoFadeIn 260ms ease-out",
-              }}
-            />
-            {current.caption && (
-              <figcaption
-                className={`${cormorant.className} italic mt-4 text-white/70 text-center text-sm sm:text-base max-w-xl px-4`}
-              >
-                {current.caption}
-              </figcaption>
-            )}
-
-            <a
-              href={downloadUrl(current.id)}
-              download
-              onClick={async (e) => {
-                e.stopPropagation();
-                if (downloading) {
-                  e.preventDefault();
-                  return;
-                }
-                e.preventDefault();
-                setDownloading(true);
-                try {
-                  const res = await fetch(downloadUrl(current.id));
-                  const blob = await res.blob();
-                  const blobUrl = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = blobUrl;
-                  a.download = `${current.id.split("/").pop() ?? "foto"}.jpg`;
-                  document.body.appendChild(a);
-                  a.click();
-                  a.remove();
-                  URL.revokeObjectURL(blobUrl);
-                } catch (err) {
-                  console.error("Download failed:", err);
-                  window.location.href = downloadUrl(current.id);
-                } finally {
-                  setDownloading(false);
-                }
-              }}
-              aria-label="Baixar esta foto para o seu dispositivo"
-              aria-busy={downloading}
-              className={`mt-5 sm:mt-6 inline-flex items-center gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-[#faf6ed] hover:bg-white text-[#5a4428] font-semibold text-base sm:text-lg tracking-wide shadow-[0_10px_30px_-6px_rgba(0,0,0,0.6)] border-2 border-[#d9c9a3] transition-all duration-200 ${
-                downloading
-                  ? "cursor-wait opacity-90"
-                  : "hover:scale-[1.03] active:scale-[0.98]"
-              }`}
+          {current.caption && (
+            <figcaption
+              className={`${cormorant.className} absolute bottom-24 sm:bottom-28 left-1/2 -translate-x-1/2 z-[60] italic text-white/90 text-center text-sm sm:text-base max-w-xl px-4 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]`}
             >
-              {downloading ? (
-                <svg
-                  className="w-6 h-6 sm:w-7 sm:h-7 animate-spin"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden
+              {current.caption}
+            </figcaption>
+          )}
+
+          <a
+            href={downloadUrl(current.id)}
+            download
+            onClick={async (e) => {
+              e.stopPropagation();
+              if (downloading) {
+                e.preventDefault();
+                return;
+              }
+              e.preventDefault();
+              setDownloading(true);
+              try {
+                const res = await fetch(downloadUrl(current.id));
+                const blob = await res.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = blobUrl;
+                a.download = `${current.id.split("/").pop() ?? "foto"}.jpg`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(blobUrl);
+              } catch (err) {
+                console.error("Download failed:", err);
+                window.location.href = downloadUrl(current.id);
+              } finally {
+                setDownloading(false);
+              }
+            }}
+            aria-label="Baixar esta foto para o seu dispositivo"
+            aria-busy={downloading}
+            className={`absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-[60] inline-flex items-center gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-[#faf6ed] hover:bg-white text-[#5a4428] font-semibold text-base sm:text-lg tracking-wide shadow-[0_10px_30px_-6px_rgba(0,0,0,0.8)] border-2 border-[#d9c9a3] transition-all duration-200 ${
+              downloading
+                ? "cursor-wait opacity-90"
+                : "hover:scale-[1.03] active:scale-[0.98]"
+            }`}
+          >
+            {downloading ? (
+              <svg
+                className="w-6 h-6 sm:w-7 sm:h-7 animate-spin"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden
+              >
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.2" opacity="0.25" />
+                <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <ArrowDownTrayIcon className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.2} />
+            )}
+            <span>{downloading ? "Baixando…" : "Baixar foto"}</span>
+          </a>
+
+          {showRotateHint && (
+            <div
+              className="absolute inset-0 z-[70] flex items-center justify-center bg-black/80 backdrop-blur-sm px-6"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowRotateHint(false);
+              }}
+            >
+              <div className="flex flex-col items-center text-center text-white max-w-xs">
+                <DevicePhoneMobileIcon
+                  className="w-20 h-20 mb-4"
+                  style={{ animation: "rotateHint 2.2s ease-in-out infinite" }}
+                  strokeWidth={1.5}
+                />
+                <p className={`${cormorant.className} italic text-xl mb-2`}>
+                  Gire o celular
+                </p>
+                <p className="text-sm opacity-80">
+                  Para uma melhor visualização, use o aparelho na horizontal.
+                </p>
+                <button
+                  className="mt-5 px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 border border-white/30 text-sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowRotateHint(false);
+                  }}
                 >
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.2" opacity="0.25" />
-                  <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-                </svg>
-              ) : (
-                <ArrowDownTrayIcon className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.2} />
-              )}
-              <span>{downloading ? "Baixando…" : "Baixar foto"}</span>
-            </a>
-          </figure>
+                  Continuar assim mesmo
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -411,6 +476,10 @@ export default function PhotoGallery() {
         @keyframes cardReveal {
           from { opacity: 0; transform: translateY(14px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes rotateHint {
+          0%, 100% { transform: rotate(0deg); }
+          40%, 60% { transform: rotate(-90deg); }
         }
       `}</style>
     </div>
