@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
+  ArrowDownTrayIcon,
   ArrowUturnLeftIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -11,6 +12,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Libre_Baskerville, Cormorant_Garamond } from "next/font/google";
 import {
+  downloadUrl,
   flattenGroups,
   fullUrl,
   getPhotoGroups,
@@ -41,6 +43,8 @@ export default function PhotoGallery() {
   const [open, setOpen] = useState<number | null>(null);
   const [activeGroup, setActiveGroup] = useState(0);
   const touchStartX = useRef(0);
+
+  const [downloading, setDownloading] = useState(false);
 
   const flat = useMemo(() => flattenGroups(groups), [groups]);
 
@@ -321,7 +325,7 @@ export default function PhotoGallery() {
           </div>
 
           <figure
-            className="max-w-[92vw] max-h-[82vh] flex flex-col items-center"
+            className="max-w-[92vw] flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
             <img
@@ -330,7 +334,7 @@ export default function PhotoGallery() {
               alt={current.caption ?? ""}
               width={current.width}
               height={current.height}
-              className="max-w-[92vw] max-h-[82vh] w-auto h-auto object-contain shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)]"
+              className="max-w-[92vw] max-h-[70vh] sm:max-h-[74vh] w-auto h-auto object-contain shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)]"
               style={{
                 animation: "photoFadeIn 260ms ease-out",
               }}
@@ -342,6 +346,59 @@ export default function PhotoGallery() {
                 {current.caption}
               </figcaption>
             )}
+
+            <a
+              href={downloadUrl(current.id)}
+              download
+              onClick={async (e) => {
+                e.stopPropagation();
+                if (downloading) {
+                  e.preventDefault();
+                  return;
+                }
+                e.preventDefault();
+                setDownloading(true);
+                try {
+                  const res = await fetch(downloadUrl(current.id));
+                  const blob = await res.blob();
+                  const blobUrl = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = blobUrl;
+                  a.download = `${current.id.split("/").pop() ?? "foto"}.jpg`;
+                  document.body.appendChild(a);
+                  a.click();
+                  a.remove();
+                  URL.revokeObjectURL(blobUrl);
+                } catch (err) {
+                  console.error("Download failed:", err);
+                  window.location.href = downloadUrl(current.id);
+                } finally {
+                  setDownloading(false);
+                }
+              }}
+              aria-label="Baixar esta foto para o seu dispositivo"
+              aria-busy={downloading}
+              className={`mt-5 sm:mt-6 inline-flex items-center gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-[#faf6ed] hover:bg-white text-[#5a4428] font-semibold text-base sm:text-lg tracking-wide shadow-[0_10px_30px_-6px_rgba(0,0,0,0.6)] border-2 border-[#d9c9a3] transition-all duration-200 ${
+                downloading
+                  ? "cursor-wait opacity-90"
+                  : "hover:scale-[1.03] active:scale-[0.98]"
+              }`}
+            >
+              {downloading ? (
+                <svg
+                  className="w-6 h-6 sm:w-7 sm:h-7 animate-spin"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden
+                >
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.2" opacity="0.25" />
+                  <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                </svg>
+              ) : (
+                <ArrowDownTrayIcon className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.2} />
+              )}
+              <span>{downloading ? "Baixando…" : "Baixar foto"}</span>
+            </a>
           </figure>
         </div>
       )}

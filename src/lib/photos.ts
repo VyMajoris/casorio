@@ -30,6 +30,11 @@ export function tinyUrl(id: string) {
   return `https://res.cloudinary.com/${CLOUD}/image/upload/w_24,q_10,e_blur:200,f_auto/${id}`;
 }
 
+export function downloadUrl(id: string) {
+  if (isExternal(id) || !CLOUD) return id;
+  return `https://res.cloudinary.com/${CLOUD}/image/upload/fl_attachment,q_auto:best,f_auto/${id}`;
+}
+
 export function srcSet(id: string) {
   return [400, 600, 800, 1200, 1600]
     .map((w) => `${thumbUrl(id, w)} ${w}w`)
