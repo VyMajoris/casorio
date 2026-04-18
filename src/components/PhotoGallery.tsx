@@ -231,12 +231,7 @@ export default function PhotoGallery() {
                           }}
                         >
                           {g.title}
-                          <span
-                            className="ml-1 sm:ml-2 not-italic text-[0.7em] sm:text-[0.6em] tracking-widest align-middle"
-                            style={{ opacity: isActive ? 0.7 : 0.5 }}
-                          >
-                            · {g.photos.length.toString().padStart(2, "0")}
-                          </span>
+                          
                         </button>
                       </li>
                     );
