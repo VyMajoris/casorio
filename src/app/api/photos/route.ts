@@ -13,10 +13,10 @@ cloudinary.config({
 const ROOT = "casorio";
 
 const GROUP_LABELS: Record<string, { title: string; order: number }> = {
-  noivos: { title: "Os Noivos", order: 10 },
-  igrejamisc: { title: "A Igreja", order: 20 },
-  familianoiva: { title: "Família da Noiva", order: 30 },
-  familianoivo: { title: "Família do Noivo", order: 40 },
+  Noivos: { title: "Os Noivos", order: 1 },
+  "Gerais e Terceiros": { title: "A Igreja", order: 4 },
+  familianoiva: { title: "Família da Noiva", order: 2 },
+  familianoivo: { title: "Família do Noivo", order: 3 },
 };
 
 interface CloudinaryFolder {
